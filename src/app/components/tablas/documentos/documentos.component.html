@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <h2 class="text-center fw-bold py-4">Base de Datos - SignSync</h2>
+  <div class="row">
+    <!-- CONTENIDO -->
+    <div class="col-md-12 bg-white rounded-3 p-3">
+      <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/">Tablas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/tablas/usuarios">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/empresas">Empresas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/contratos">Contratos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/contratistas">Contratistas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/paquetes">Paquetes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/tablas/documentos">Documentos</a>
+        </li>
+      </ul>
+
+      <div class="table-container">
+        <div class="container mt-4">
+          <div class="row">
+            <div class="col-10">
+              <h2 class="text-center mb-4">Documentos</h2>
+            </div>
+            <div class="col-2">
+              <button (click)="showModal('')" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">Crear documento</button>
+            </div>
+          </div>
+          <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Archivo</th>
+                <th>ID Contrato</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let documento of documentos?.documentos">
+                <td>{{ documento?.idDocumento }}</td>
+                <td>{{ documento?.nombre }}</td>
+                <td><a [href]="'http://127.0.0.1:5000/'+documento?.url" target="_blank">{{ documento?.nombre }}</a></td>
+                <td>{{ documento?.idContrato }}</td>
+                <td>
+                  <button (click)="showModal(documento?.idDocumento)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">Editar</button>
+                </td>
+                <td>
+                  <button (click)="deleteDocumento(documento?.idDocumento)"  class="btn btn-danger btn-sm">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL -->
+
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 *ngIf="idDocumento" class="modal-title fs-5" id="exampleModalLabel">Modificar documento</h1>
+        <h1 *ngIf="!idDocumento" class="modal-title fs-5" id="exampleModalLabel">Registrar documento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <form [formGroup]="formgroup" (ngSubmit)="edit_submit()">
+            <div class="mb-3 formulario-group">
+              <label for="nombre">Nombre: </label>
+              <input type="text" formControlName="nombre" placeholder="Ingresa el nombre del paquete">
+            </div>
+            <div class="mb-3 formulario-group">
+              <label for="file">Sube tu archivo: </label>
+              <input type="file" (change)="onFileSelected($event)">
+              <span *ngIf="filepath"><a [href]="'http://127.0.0.1:5000/'+filepath" target="_blank">Archivo cargado</a></span>
+            </div>
+            <div class="col-6 inline">
+              <label for="idContrato" class="w-100">Contrato: </label>
+              <select formControlName="idContrato" id="contrato-select">
+                <option *ngFor="let contrato of contratos?.contratos" [value]="contrato?.idContrato">
+                    {{contrato?.idContrato}} - {{contrato?.nombre}}
+                </option>
+              </select>
+            </div>
+            <br>
+            <div class="d-flex flex-row-reverse">
+              <button *ngIf="idDocumento" type="submit" class="enviar">Editar documento</button>
+              <button *ngIf="!idDocumento" type="submit" class="enviar">Registrar documento</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

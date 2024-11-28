@@ -1,0 +1,183 @@
+<div class="container-fluid">
+  <h2 class="text-center fw-bold py-4">Base de Datos - SignSync</h2>
+  <div class="row">
+    <!-- CONTENIDO -->
+    <div class="col-md-12 bg-white rounded-3 p-3">
+      <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/">Tablas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/usuarios">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/empresas">Empresas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/tablas/contratos">Contratos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/contratistas">Contratistas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/tablas/paquetes">Paquetes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/tablas/documentos">Documentos</a>
+        </li>
+      </ul>
+
+      <div class="table-container">
+        <div class="container mt-4">
+          <div class="row">
+            <div class="col-10">
+              <h2 class="text-center mb-4">Contratos</h2>
+            </div>
+            <div class="col-2">
+              <button (click)="showModal('')" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">Crear contratos</button>
+            </div>
+          </div>
+          <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Lugar</th>
+                <th>Fecha entrega</th>
+                <th>Fecha inicio</th>
+                <th>Color</th>
+                <th>Empresa</th>
+                <!-- <th>Contratista</th> -->
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let contrato of contratos?.contratos">
+                <td>{{ contrato?.idContrato }}</td>
+                <td>{{ contrato?.nombre }}</td>
+                <td>{{ contrato?.tipo }}</td>
+                <td>{{ contrato?.lugar }}</td>
+                <td>{{ contrato?.fecha_entrega }}</td>
+                <td>{{ contrato?.fecha_inicio }}</td>
+                <td>{{ contrato?.color }}</td>
+                <td>{{ contrato?.id_empresa }}</td>
+                <!-- <td>CONTRATISTA</td> -->
+                <td>
+                  <button (click)="showModal(contrato?.idContrato)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary btn-sm">Editar</button>
+                </td>
+                <td>
+                  <button (click)="deleteContrato(contrato?.idContrato)"  class="btn btn-danger btn-sm">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 *ngIf="idContrato" class="modal-title fs-5" id="exampleModalLabel">Modificar contrato</h1>
+        <h1 *ngIf="!idContrato" class="modal-title fs-5" id="exampleModalLabel">Registrar contrato</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <form [formGroup]="formgroup" (ngSubmit)="edit_submit()">
+            <div class="mb-3 formulario-group">
+              <label for="NombreContrato">Nombre del contrato</label>
+              <input type="text" formControlName="nombre" placeholder="Ingresa el nombre del usuario">
+            </div>
+            <div class="row mb-3">
+              <div class="col formulario-group">
+                <label for="">Tipo de contrato</label>
+                <select formControlName="tipo">
+                  <option value="Servicios">Servicios</option>
+                  <option value="Venta">Venta</option>
+                  <option value="Alquiler">Alquiler</option>
+                  <option value="Licencia">Licencia</option>
+                  <option value="Distribución">Distribución</option>
+                  <option value="Trabajo">Trabajo</option>
+                  <option value="Asociación">Asociación</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="">Eligue un color para tu contrato</label>
+                <div class="color-options">
+                  <label class="color-option">
+                    <input type="radio" formControlName="color" value="#FEE4CB" name="color">
+                    <div class="color-circle" style="background-color: #FEE4CB;"></div>
+                    <span>Color 1</span>
+                  </label>
+                  <label class="color-option">
+                    <input type="radio" formControlName="color" value="#FFD3E2" name="color">
+                    <div class="color-circle" style="background-color: #FFD3E2;"></div>
+                    <span>Color 2</span>
+                  </label>
+                  <label class="color-option">
+                    <input type="radio" formControlName="color" value="#E9E7FD" name="color">
+                    <div class="color-circle" style="background-color: #E9E7FD;"></div>
+                    <span>Color 3</span>
+                  </label>
+                  <label class="color-option">
+                    <input type="radio" formControlName="color" value="#C8F7DC" name="color">
+                    <div class="color-circle" style="background-color: #C8F7DC;"></div>
+                    <span>Color 4</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 formulario-group">
+              <label for="lugar">Lugar</label>
+              <input type="text" formControlName="lugar" id="" placeholder="Ingresa el lugar del contrato">
+            </div>
+            <div class="row mb-3">
+              <div class="col formulario-group">
+                <label for="">Fecha de inicio del contrato</label>
+                <input type="date" formControlName="fecha_inicio" id="">
+              </div>
+              <div class="col formulario-group">
+                <label for="">Fecha de entrega del contrato</label>
+                <input type="date" formControlName="fecha_entrega" id="">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-6 inline">
+                <label for="id_empresa" class="w-100">Empresa: </label>
+                <select formControlName="id_empresa" id="empresa-select" (change)="getContratistas()">
+                  <option *ngFor="let empresa of empresas?.empresa" [value]="empresa.idEmpresa">
+                      {{empresa?.nombre}} - {{empresa?.idEmpresa}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-6 inline">
+                <label for="id_contratista" class="w-100">Contratista: </label>
+                <select formControlName="id_contratista" id="contratista-select">
+                  <option *ngFor="let contratista of contratistas?.contratistas" [value]="contratista.idContratista">
+                      {{contratista?.nombre}} - {{contratista?.idContratista}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="d-flex flex-row-reverse">
+              <button *ngIf="idContrato" type="submit" class="enviar">Editar empresa</button>
+              <button *ngIf="!idContrato" type="submit" class="enviar">Registrar empresa </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
