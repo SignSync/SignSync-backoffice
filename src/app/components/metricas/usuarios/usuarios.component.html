@@ -1,31 +1,68 @@
-<div class="container my-4">
-  <h1 class="text-center mb-4">Métricas de Usuario</h1>
-  <div class="row g-4">
+<div class="container-fluid">
+  <h2 class="text-center fw-bold py-4">Base de Datos - SignSync</h2>
+  <div class="row">
+    <!-- CONTENIDO -->
+    <div class="col-md-12 bg-white rounded-3 p-3">
+      <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+          <a class="nav-link active" href="/metricas/usuarios">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/metricas/empresas">Empresas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/metricas/contratos">Contratos</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="/metricas/contratos">Contratos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/metricas/contratistas">Contratistas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/metricas/paquetes">Paquetes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/metricas/documentos">Documentos</a>
+        </li> -->
+      </ul>
 
-    <!-- Registros Diarios -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header bg-primary text-white">
-          Registros Diarios
+      <div class="table-container">
+        <div class="container my-4">
+          <h1 class="text-center mb-4">Métricas de Usuario</h1>
+          <div class="row g-4">
+
+            <!-- Registros Diarios -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-primary text-white">
+                  Registros Diarios
+                </div>
+                <div class="card-body">
+                  <canvas  #registroChartCanvas></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Distribución por Sexo -->
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-success text-white">
+                  Distribución por Sexo
+                </div>
+                <div class="card-body">
+                  <canvas  #sexoChartCanvas></canvas>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-        <div class="card-body">
-          <canvas  #registroChartCanvas></canvas>
-        </div>
+
       </div>
     </div>
-
-    <!-- Distribución por Sexo -->
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header bg-success text-white">
-          Distribución por Sexo
-        </div>
-        <div class="card-body">
-          <canvas  #sexoChartCanvas></canvas>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
+
+
 
