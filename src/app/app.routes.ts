@@ -18,8 +18,17 @@ export const routes: Routes = [
     loadChildren: () => import('./components/tablas/tablas.routes')
   },
   {
+    path:'metricas',
+    component: NavegacionComponent,
+    loadChildren: () => import('./components/metricas/metricas.routes')
+  },
+  {
     path:'*',
     redirectTo: ''
   },
+  {
+    path: '**',
+    loadComponent: () => import('./not-found/not-found.component').then(m => m.NotFoundComponent)
+  }
 
 ];

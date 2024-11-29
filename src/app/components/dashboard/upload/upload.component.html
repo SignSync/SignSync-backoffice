@@ -1,0 +1,74 @@
+<div class="container-fluid mb-5">
+  <h2 class="text-center fw-bold py-4">Análisis</h2>
+  <div class="row">
+    <div class="col-md-2 bg-white rounded-3 sidebar shadow-sm p-4">
+      <h5 class="text-center fw-bold mb-4">Gráficos</h5>
+      <ul class="list-unstyled">
+        <li class="mb-3">
+          <button (click)="navigateToUrl('')" class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-chart-bar"></i> Todos
+          </button>
+        </li>
+        <li class="mb-3">
+          <button (click)="navigateToUrl('viabilidad')" class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-tachometer-alt"></i> Viabilidad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button (click)="navigateToUrl('rentabilidad')" class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Rentabilidad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button (click)="navigateToUrl('aceptabilidad')" class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Aceptabilidad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Funcionalidad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button (click)="navigateToUrl('sastifaccion')" class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Sastifacción
+          </button>
+        </li>
+        <li class="mb-3">
+          <button (click)="navigateToUrl('crecimiento')"  class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Crecimiento y seguridad
+          </button>
+        </li>
+        <li class="mb-3">
+          <button class="btn btn-outline-dark w-100 d-flex align-items-center">
+            <i class="fas fa-dollar-sign"></i> Base de datos
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-10">
+      <div class="container my-5">
+        <h3 class="mb-4">IMPORTA TU ARCHIVO CSV</h3>
+        <!-- Select -->
+        <div class="mb-3">
+          <label for="tableSelect" class="form-label">Selecciona la tabla a actualizar</label>
+          <select id="tableSelect" class="form-select">
+            <option selected>Aceptabilidad</option>
+            <!-- Agrega más opciones si es necesario -->
+          </select>
+        </div>
+        <!-- Drag and Drop -->
+        <div class="dropzone mb-3" id="dropzone">
+          <i class="bi bi-file-earmark-arrow-up"></i>
+          <p>Haz clic o arrastra un archivo aquí</p>
+          <p class="text-muted">Ningún archivo seleccionado</p>
+        </div>
+        <!-- Button -->
+        <div class="d-flex justify-content-start">
+          <button type="button" class="btn btn-import px-4">Importar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

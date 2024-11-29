@@ -29,13 +29,19 @@ export default class SignInComponent{
 
   ngOnInit(): void {
     this.formGroup = this.initForm();
+    if(this.servicio.getCookie('user_back_id')){
+      console.log('tienes sesion')
+      this.router.navigate(['/metricas']);
+    }
   }
 
   initForm():FormGroup{
     return this.fb.group({
       correo:[''],
       contrasena:[''],
-    })
+    });
+
+
   }
 
   onSubmit(): void {

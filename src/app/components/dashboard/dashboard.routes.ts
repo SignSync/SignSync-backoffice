@@ -9,6 +9,11 @@ const dashboardRoutes: unknown = [
     path: 'graficas/:grafica',
     loadComponent: () => import('./graficas/graficas.component')
   },
+  // {
+  //   path:'upload',
+  //   // component: UploadComponent,
+  //   loadChildren: () => import('./upload/upload.component')
+  // },
 ];
 
 // Fuerza la conversión a Routes

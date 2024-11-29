@@ -13,6 +13,10 @@ const navRoutes: unknown = [
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.routes')
   },
+  {
+    path:'upload',
+    loadComponent: () => import('./dashboard/upload/upload.component')
+  },
 ];
 
 // Fuerza la conversión a Routes

@@ -1,0 +1,24 @@
+.dropzone {
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+  cursor: pointer;
+}
+.dropzone:hover {
+  background-color: #e9ecef;
+}
+.dropzone i {
+  font-size: 24px;
+  margin-bottom: 10px;
+  display: block;
+}
+.btn-import {
+  background-color: #5c6bc0;
+  color: white;
+}
+.btn-import:hover {
+  background-color: #3949ab;
+}

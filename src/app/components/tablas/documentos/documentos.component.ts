@@ -273,13 +273,13 @@ export class DocumentosComponent {
       return;
     }
 
-    this.serv.updateData('documentos/editardocumento', formData).subscribe({
+    this.serv.updateData_file('documentos/editardocumento', formData).subscribe({
       next: (data: any) => {
         console.log('Datos recibidos:', data);
         if(data.status){
           Swal.fire({
             icon: "success",
-            title: "Paquete editado correctamente",
+            title: "Documento editado correctamente",
             showConfirmButton: false,
             timer: 1500
           }).then(() => {
