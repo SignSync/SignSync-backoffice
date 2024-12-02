@@ -24,6 +24,8 @@ export class UsuarioComponent implements OnInit {
   usuarios:any;
   usuario:any;
 
+  usuario_data:any;
+
   initFormUser():FormGroup{
     return this.fb.group({
       usuario:[''],
@@ -99,6 +101,8 @@ export class UsuarioComponent implements OnInit {
       }
     });
   }
+
+
 
 
   showModal(id_user:string):void{
@@ -234,6 +238,84 @@ export class UsuarioComponent implements OnInit {
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Mes empieza en 0
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
+  }
+
+
+  verData(id_user:string):void{
+    console.log(id_user)
+    const params = { id_user };
+    this.serv.getDataParam('perfil/getuser', params).subscribe({
+      next: (data: any) => {
+          console.log('Datos recibidos:', data);
+
+          if (data?.status && data?.usuario?.length > 0) {
+
+            const usuario = data.usuario[0];
+
+            // Generar estatus del servicio y mantenimiento basados en el ID del usuario
+            console.log(usuario.id_user)
+            usuario.servicio_status = this.getRandomServicio(usuario.id_user);
+            usuario.mantenimiento_status =
+                usuario.servicio_status === 'Plataforma Pagada'
+                    ? this.getRandomMantenimiento(usuario.correo)
+                    : 'Sin servicio';
+
+            this.usuario_data = usuario;
+          } else {
+              console.warn('No se encontraron datos del usuario o la respuesta no es válida.');
+              this.usuario_data = {
+                  usuario: '-',
+                  correo: '-',
+                  sexo: '-',
+                  fecha_nacimiento: '-',
+                  servicio_status: 'Sin servicio',
+                  mantenimiento_status: 'Sin servicio',
+              };
+          }
+        },
+      error: (error) => {
+          console.error('Error al obtener las tablas:', error);
+      },
+      complete: () => {
+          console.log('Solicitud completada');
+      }
+    });
+  }
+
+  private generateHash(id: string): number {
+    if (!id || id.length === 0) {
+        return 0; // Manejar casos donde el ID está vacío
+    }
+    id = String(id);
+    console.log(id.length)
+    let hash = 0;
+    for (let i = 0; i < id.length; i++) {
+        hash = (hash << 5) - hash + id.charCodeAt(i);
+        hash = hash & hash;
+        console.log(hash)
+    }
+    console.log(hash)
+    return Math.abs(hash); // Asegurarse de que sea positivo
+  }
+
+  red:string = '';
+  green:string = '';
+
+  getRandomServicio(id: string): string {
+    // console.log(id)
+    const servicios = ['Plataforma Pagada', 'Plataforma prueba gratuita'];
+    const hash = this.generateHash(id);
+    const index = hash % servicios.length; // Seleccionar un índice basado en el hash
+    // console.log(hash)
+    // console.log(index)
+    return servicios[index];
+  }
+
+  getRandomMantenimiento(id: string): string {
+    const mantenimientos = ['Mantenimiento Activo', 'Sin servicio'];
+    const hash = this.generateHash(id);
+    const index = hash % mantenimientos.length; // Seleccionar un índice basado en el hash
+    return mantenimientos[index];
   }
 
 }

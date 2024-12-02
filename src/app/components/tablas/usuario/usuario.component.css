@@ -52,3 +52,12 @@
   white-space: normal;
   word-wrap: break-word;
 }
+.pago {
+  color: rgb(79, 189, 79) !important; /* Texto en verde para pagos realizados */
+  font-weight: bold;
+}
+
+.no-pago {
+  color: red !important; /* Texto en rojo para pagos pendientes */
+  font-weight: bold;
+}

@@ -52,8 +52,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let usuario of usuarios?.usuarios">
-                <td>{{ usuario?.id_user }}</td>
-                <td>{{ usuario?.usuario }}</td>
+                <td> {{ usuario?.id_user }}</td>
+                <td><a (click)="verData(usuario?.id_user)" data-bs-toggle="modal" data-bs-target="#dataModal">{{ usuario?.usuario }}</a></td>
                 <td>{{ usuario?.correo }}</td>
                 <td>{{ usuario?.sexo || 'N/A' }}</td>
                 <td>{{ usuario?.created_date | date:'short' }}</td>
@@ -137,4 +137,52 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- MODAL -->
+
+<div class="modal fade" id="dataModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="dataModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="dataModalLabel">Datos usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar"></button>
+      </div>
+      <div class="modal-body" *ngIf="usuario_data">
+        <div class="row mb-3">
+          <div class="col-md-4 text-right font-weight-bold">Usuario:</div>
+          <div class="col-md-8 text-left text-muted">{{ usuario_data.usuario }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-4 text-right font-weight-bold">Correo:</div>
+          <div class="col-md-8 text-left text-muted">{{ usuario_data.correo }}</div>
+        </div>
+        <div *ngIf="!id_user" class="row mb-3">
+          <div class="col-md-4 text-right font-weight-bold">Contraseña:</div>
+          <div class="col-md-8 text-left text-muted">**************</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-4 text-right font-weight-bold">Sexo:</div>
+          <div class="col-md-8 text-left text-muted">{{ usuario_data.sexo }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-4 text-right font-weight-bold">Fecha de Nacimiento:</div>
+          <div class="col-md-8 text-left text-muted">{{ usuario_data.fecha_nacimiento  | date:'short' }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-4 text-right font-weight-bold">Servicio actual:</div>
+          <div class="col-md-8 text-left text-muted" [ngClass]="{'pago': usuario_data.servicio_status === 'Plataforma Pagada', '': usuario_data.servicio_status === 'Plataforma prueba gratuita'}">{{ usuario_data.servicio_status }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-4 text-right font-weight-bold">Pago de mantenimiento (Anual):</div>
+          <div class="col-md-8 text-left text-muted" [ngClass]="{'pago': usuario_data.mantenimiento_status === 'Mantenimiento Activo', 'no-pago': usuario_data.mantenimiento_status === 'Sin servicio'}">{{ usuario_data.mantenimiento_status }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
